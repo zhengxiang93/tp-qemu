@@ -3,6 +3,8 @@ import os
 
 from avocado.utils.git import get_repo
 from avocado.utils.process import system_output
+from autotest.client import utils
+from virttest import data_dir
 
 def run(test, params, env):
 
