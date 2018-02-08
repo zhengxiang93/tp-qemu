@@ -30,7 +30,7 @@ def run(test, params, env):
     for i in xrange(shutdown_count):
         vm = env.get_vm(params["main_vm"])
         vm.verify_alive()
-        session = vm.wait_for_login(timeout=timeout)
+        session = vm.wait_for_serial_login(timeout=timeout)
         error.base_context("shutting down the VM %s/%s" % (i + 1,
                                                            shutdown_count),
                            logging.info)
