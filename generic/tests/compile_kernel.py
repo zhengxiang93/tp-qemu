@@ -2,7 +2,6 @@ import logging
 import os
 
 from avocado.utils.git import get_repo
-from avocado.utils.process import system_output
 from autotest.client import utils
 from virttest import data_dir
 
@@ -26,11 +25,11 @@ def run(test, params, env):
     command = "git tag | grep '^v[0-9]\+\.[0-9]\+$' | sort --version-sort | tail -n 1"
     version = utils.system_output(command)
     logging.info("Building Linux %s..." % version)
-    system_output("git checkout %s" % version)
-    system_output("make distclean")
-    system_output("make defconfig")
-    system_output("make -j `nproc`")
+    utils.system_output("git checkout %s" % version)
+    utils.system_output("make distclean")
+    utils.system_output("make defconfig")
+    utils.system_output("make -j `nproc`")
 
     test.assertTrue(os.path.isfile("arch/arm64/boot/Image"), "Build Linux Failed!")
-    system_output("cp arch/arm64/boot/Image %s" % data_dir.get_data_dir())
+    utils.system_output("cp arch/arm64/boot/Image %s" % data_dir.get_data_dir())
     logging.info("Building Linux Success!")
